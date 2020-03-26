@@ -2,9 +2,10 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
-    url: jdbc:mysql://remotemysql.com/LmQycUUnF6
-    username: LmQycUUnF6
-    password: o61OEVtDzm
+    url: jdbc:${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    
     
