@@ -69,6 +69,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.anyRequest().authenticated()
 		.and()
 		.csrf().disable()
+		.cors().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
