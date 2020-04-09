@@ -21,7 +21,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/usuarios").permitAll()
+		http.authorizeRequests().antMatchers("/api/**").permitAll()
+			.and().authorizeRequests()
 			.anyRequest().authenticated()
 			.and()
 			.cors().configurationSource(corsConfigurationSource());
