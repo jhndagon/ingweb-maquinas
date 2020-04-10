@@ -19,5 +19,7 @@ public interface IUsuarioService {
 	
 	void deleteUsuario(Long id);
 	
+	Usuario updateUsuario(Usuario usuario);	
+	
 	List<Rol> getRoles();
 }

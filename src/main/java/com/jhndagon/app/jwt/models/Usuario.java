@@ -18,8 +18,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +44,6 @@ public class Usuario implements Serializable {
 	private String usuario;
 	@NotNull
 	@Column(length = 60)
-	@JsonIgnore
 	private String contrasenia;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -60,5 +57,8 @@ public class Usuario implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		fechaCreacion = new Date();
+		
 	}
+
+
 }

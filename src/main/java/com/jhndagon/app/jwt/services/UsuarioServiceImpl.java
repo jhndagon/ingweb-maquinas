@@ -58,6 +58,12 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
 		return usuarioRepository.save(usuario);
 	}
 	
+
+	@Override
+	public Usuario updateUsuario(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
+	
 	@Override
 	@Transactional(readOnly = false)
 	public void deleteUsuario(Long id) {
@@ -92,6 +98,4 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
 		
 		return new User(usuario1.getUsuario(), usuario1.getContrasenia(), true, true, true, true, authorities);
 	}
-
-
 }
