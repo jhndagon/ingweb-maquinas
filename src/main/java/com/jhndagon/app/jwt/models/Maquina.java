@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,17 +14,27 @@ import java.util.Date;
 @Setter
 
 public class Maquina implements Serializable {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String marca;
     @NotNull
     private String modelo;
-    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @NotNull
     private String tipo;
+    
+    @PrePersist
+    public void prePersist() {
+    	fechaCreacion = new Date();
+    }
 
+    
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7441584757909078961L;
 }

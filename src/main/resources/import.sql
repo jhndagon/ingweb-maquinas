@@ -8,3 +8,8 @@ insert into usuarios(nombre, usuario, contrasenia, id_rol) values("David","david
 insert into usuarios(nombre, usuario, contrasenia, id_rol) values("Mateo","mateo", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1);
 insert into usuarios(nombre, usuario, contrasenia, id_rol) values("Mateo","mateo123", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1);
 insert into usuarios(nombre, usuario, contrasenia, id_rol) values("Paula","paula", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1);
+insert into usuarios(nombre, usuario, contrasenia, id_rol) values("Usuario","user", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1);
+
+
+insert into maquinas(marca, modelo, tipo) values("brother", "2017", "buena")
+insert into maquinas(marca, modelo, tipo) values("Singer", "2007", "Regular")
