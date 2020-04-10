@@ -13,9 +13,3 @@ insert into usuarios(nombre, usuario, contrasenia, id_rol) values("Usuario","use
 
 insert into maquinas(marca, modelo, tipo) values("brother", "2017", "buena")
 insert into maquinas(marca, modelo, tipo) values("Singer", "2007", "Regular")
-
-insert into provedores(nombre, nit, ubicacion, telefono) values("Para coser S.A.S", "7658798765", "Medellin", "867-0022")
-insert into provedores(nombre, nit, ubicacion, telefono) values("Servitejer", "8745328765", "Medellin", "045-8866")
-insert into provedores(nombre, nit, ubicacion, telefono) values("Macoser", "98453209", "Copacabana", "238-2214")
-insert into provedores(nombre, nit, ubicacion, telefono) values("Tecni Costura S.A", "65349870", "Barbosa", "887-1114")
-
