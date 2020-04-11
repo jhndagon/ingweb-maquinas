@@ -3,8 +3,6 @@ package com.jhndagon.app.jwt.controllers;
 import com.jhndagon.app.jwt.models.Provedor;
 import com.jhndagon.app.jwt.services.IProvedorService;
 
-import java.util.stream.Collectors;
-
 import javax.validation.constraints.Max;
 
 import org.springframework.beans.factory.annotation.Autowired;

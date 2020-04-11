@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name="provedores")
@@ -27,9 +26,9 @@ public class Provedor implements Serializable {
     @NotNull
     private String telefono;
     
-   
-    /**
+
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7441584757909078961L;
+	private static final long serialVersionUID = -6622114774132787076L;
 }
