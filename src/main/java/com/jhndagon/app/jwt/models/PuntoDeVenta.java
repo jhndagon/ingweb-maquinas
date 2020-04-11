@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,11 @@ public class PuntoDeVenta implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
+	private String detalle;
+	@NotNull
+	private String direccion;
+	@NotNull
+	private String telefono;
 	
 	
 	
