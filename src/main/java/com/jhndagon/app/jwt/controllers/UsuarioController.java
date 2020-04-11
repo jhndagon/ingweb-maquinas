@@ -84,7 +84,7 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
-	@PostMapping("/usuario/rol/{rolId}")
+	@PostMapping("/usuario/rol/{rolId}/contrato/{contratoId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario,@PathVariable Integer rolId, BindingResult result) {
 		if((rolId<0 || rolId > 4) || rolId == null) {
