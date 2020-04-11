@@ -1,10 +1,7 @@
 package com.jhndagon.app.jwt.services;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
-import com.jhndagon.app.jwt.models.Rol;
 import com.jhndagon.app.jwt.models.Usuario;
 
 public interface IUsuarioService {
@@ -21,5 +18,4 @@ public interface IUsuarioService {
 	
 	Usuario updateUsuario(Usuario usuario);	
 	
-	List<Rol> getRoles();
 }

@@ -1,17 +1,21 @@
 package com.jhndagon.app.jwt.controllers;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jhndagon.app.jwt.models.Rol;
 import com.jhndagon.app.jwt.models.Usuario;
+import com.jhndagon.app.jwt.services.IRolService;
 import com.jhndagon.app.jwt.services.IUsuarioService;
 
 @RestController
@@ -33,6 +38,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private IRolService rolService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -54,54 +62,113 @@ public class UsuarioController {
 	//@Secured({"ROLE_ADMIN"})
 	@GetMapping("/usuario/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Usuario usuario(@PathVariable Long id) {
-		Usuario usuario = usuarioService.findById(id);
-		if(usuario != null) {
-			usuario.setContrasenia("");			
+	public ResponseEntity<?> usuario(@PathVariable Long id) {
+		
+		Usuario usuario = null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			usuario = usuarioService.findById(id);
 		}
-		return usuario;
+		catch (DataAccessException e) {
+			response.put("mensaje", "Error al acceder a la base de datos"); 
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if(usuario == null) {
+			response.put("mensaje", "El cliente con id: ".concat(id.toString().concat(", no existe en la base de datos.")));	
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		usuario.setContrasenia("");
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.NOT_FOUND);
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
-	@PostMapping("/usuario")
+	@PostMapping("/usuario/rol/{rolId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario crearUsuario(@RequestBody Usuario usuario) {
-		usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
-		usuario = usuarioService.createUsuario(usuario);
+	public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario,@PathVariable Integer rolId, BindingResult result) {
+		if((rolId<0 || rolId > 4) || rolId == null) {
+			rolId = 2;
+		}
+		Map<String, Object> response = new HashMap<>();
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField()+"' " + err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			Rol rol = rolService.getRolById(rolId);		
+			usuario.setRol(rol);
+			usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+			usuario = usuarioService.createUsuario(usuario);
+		}
+		catch (DataAccessException e) {
+			response.put("mensaje", "Error al insetar en la base de datos"); 
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 		usuario.setContrasenia("");
-		return usuario;
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
 	@PutMapping("/usuario/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+	public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuario, BindingResult result) {
+		Map<String, Object> response = new HashMap<>();
+		
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField()+"' " + err.getDefaultMessage())
+					.collect(Collectors.toList());
+			
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		} 
+		
 		Usuario usuario_ = usuarioService.findById(id);
-		if(!usuario.getContrasenia().equals(usuario_.getApellido())) {
-			usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));			
+		if(usuario_ == null) {
+			response.put("mensaje", "El cliente con id: ".concat(id.toString().concat(", no existe en la base de datos.")));	
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		usuario_ = usuarioService.updateUsuario(usuario_);
+		String contrasenia = passwordEncoder.encode(usuario.getContrasenia());
+		usuario_.setContrasenia(contrasenia);			
+		usuario_.setApellido(usuario.getApellido());
+		usuario_.setCorreo(usuario.getCorreo());
+		usuario_.setNombre(usuario.getNombre());
+		
+		try {
+			usuario_ = usuarioService.updateUsuario(usuario_);
+		}
+		catch(DataAccessException e) {
+			response.put("mensaje", "Error al actualizar en la base de datos"); 
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		usuario_.setContrasenia("");
-		return usuario_;
+		return new ResponseEntity<Usuario>(usuario_, HttpStatus.CREATED);
 	}
 	
 	//@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/usuario/{id}")
-	public Usuario borrarUsuario(@PathVariable Long id) {
+	public ResponseEntity<?> borrarUsuario(@PathVariable Long id) {
+		Map<String, Object> response = new HashMap<>();
 		Usuario usuario = usuarioService.findById(id);
-		usuarioService.deleteUsuario(id);
-		return usuario;
+		
+		try {
+			usuarioService.deleteUsuario(id);			
+		}
+		catch (DataAccessException e) {
+			response.put("mensaje", "Error al eliminar en la base de datos"); 
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
-	
-	//@Secured({"ROLE_ADMIN"})
-	@GetMapping("/roles")
-	public List<Rol> obtenerRoles() {
-		SecurityContext secury = SecurityContextHolder.getContext();
-		List<Rol> roles = usuarioService.getRoles();
-		if(secury == null || 
-				!secury.getAuthentication().getAuthorities().toArray()[0].toString().equals("ROLE_ADMIN")) {
-			roles = roles.stream().filter(rol -> !rol.getNombre().equals("ROLE_ADMIN")).collect(Collectors.toList());
-		} 
-		return roles;
-	}	
 }
