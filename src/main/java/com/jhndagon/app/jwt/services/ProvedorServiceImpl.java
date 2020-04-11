@@ -29,7 +29,7 @@ public class ProvedorServiceImpl implements IProvedorService {
     @Override
     @Transactional(readOnly = true)
     public Provedor findProvedorById(Long id) {
-       return provedorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Provedor no registrado"));
+       return provedorRepository.findById(id).orElse(null);
     }
 
     @Override

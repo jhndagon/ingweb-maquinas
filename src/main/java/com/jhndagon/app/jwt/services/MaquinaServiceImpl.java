@@ -29,7 +29,7 @@ public class MaquinaServiceImpl implements IMaquinaService {
     @Override
     @Transactional(readOnly = true)
     public Maquina findById(Long id) {
-       return maquinaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maquina no registrada"));
+       return maquinaRepository.findById(id).orElse(null);
     }
 
     @Override

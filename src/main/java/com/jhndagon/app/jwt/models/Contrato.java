@@ -9,34 +9,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="puntos_de_venta")
+@Table(name="contratos")
 @Getter
 @Setter
-public class PuntoDeVenta implements Serializable{
+public class Contrato implements Serializable{
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	public Integer id;
 	@NotEmpty
-	private String nombre;
-	private String detalle;
-	@NotNull
-	private String direccion;
-	@NotNull
-	private String telefono;
-	
-	
-	
-	
+	public String nombre;
+	public String descripcion;
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7197340963250033103L;
-	
+	private static final long serialVersionUID = 9104632145304758864L;
+
 }

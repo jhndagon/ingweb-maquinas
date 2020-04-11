@@ -51,10 +51,16 @@ public class Usuario implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_rol")
 	private Rol rol;
+	@Hidden
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_contrato")
+	private Contrato contrato;
+	@Hidden
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_punto_venta")
+	private PuntoDeVenta puntoVenta;
 	@Email
 	private String correo;
-	@NotNull
-	private String tipoContrato;
 	@Temporal(TemporalType.TIME)
 	private Date fechaInicio;
 	@Temporal(TemporalType.TIME)

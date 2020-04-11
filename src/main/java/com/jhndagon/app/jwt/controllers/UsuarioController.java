@@ -27,10 +27,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jhndagon.app.jwt.models.Contrato;
+import com.jhndagon.app.jwt.models.PuntoDeVenta;
 import com.jhndagon.app.jwt.models.Rol;
 import com.jhndagon.app.jwt.models.Usuario;
+import com.jhndagon.app.jwt.repositories.IPuntoDeVenta;
+import com.jhndagon.app.jwt.services.IContratoService;
+import com.jhndagon.app.jwt.services.IPuntoDeVentaService;
 import com.jhndagon.app.jwt.services.IRolService;
 import com.jhndagon.app.jwt.services.IUsuarioService;
+
+import lombok.val;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -41,6 +48,12 @@ public class UsuarioController {
 	
 	@Autowired
 	private IRolService rolService;
+	
+	@Autowired
+	private IContratoService contratoService;
+	
+	@Autowired
+	private IPuntoDeVentaService puntoVentaService;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -84,12 +97,15 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
-	@PostMapping("/usuario/rol/{rolId}/contrato/{contratoId}")
+	@PostMapping("/usuario")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> crearUsuario(@Valid @RequestBody Usuario usuario,@PathVariable Integer rolId, BindingResult result) {
-		if((rolId<0 || rolId > 4) || rolId == null) {
-			rolId = 2;
-		}
+	public ResponseEntity<?> crearUsuario(
+			@Valid @RequestBody Usuario usuario,
+			@RequestParam(defaultValue = "2") Integer rolId, 
+			@RequestParam(defaultValue = "4") Integer contratoId ,
+			@RequestParam(defaultValue = "0") Long puntoVentaId,
+			BindingResult result) {
+		
 		Map<String, Object> response = new HashMap<>();
 		if(result.hasErrors()) {
 			List<String> errors = result.getFieldErrors()
@@ -102,7 +118,11 @@ public class UsuarioController {
 		}
 		try {
 			Rol rol = rolService.getRolById(rolId);		
+			Contrato contrato = contratoService.getContrato(contratoId);
+			PuntoDeVenta puntoVenta = puntoVentaService.findById(puntoVentaId);
 			usuario.setRol(rol);
+			usuario.setContrato(contrato);
+			usuario.setPuntoVenta(puntoVenta);
 			usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
 			usuario = usuarioService.createUsuario(usuario);
 		}

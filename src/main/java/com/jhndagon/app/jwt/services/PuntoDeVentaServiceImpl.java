@@ -25,7 +25,7 @@ public class PuntoDeVentaServiceImpl implements IPuntoDeVentaService{
     @Override
     @Transactional(readOnly = true)
     public PuntoDeVenta findById(Long id) {
-        return puntoDeVentaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maquina no registrada"));
+        return puntoDeVentaRepository.findById(id).orElse(null);
     }
 
     @Override
