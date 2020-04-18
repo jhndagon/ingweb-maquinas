@@ -14,14 +14,14 @@ import com.jhndagon.app.jwt.models.Rol;
 import com.jhndagon.app.jwt.services.IRolService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/roles")
 public class RolController {
 	
 
 	@Autowired
 	private IRolService rolService;
 	
-	@GetMapping("/roles")
+	@GetMapping("/")
 	public List<Rol> obtenerRoles(){
 		SecurityContext secury = SecurityContextHolder.getContext();
 		List<Rol> roles = rolService.getRoles();

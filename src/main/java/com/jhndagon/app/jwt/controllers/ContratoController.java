@@ -11,13 +11,13 @@ import com.jhndagon.app.jwt.models.Contrato;
 import com.jhndagon.app.jwt.services.IContratoService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/contratos")
 public class ContratoController {
 
 	@Autowired
 	private IContratoService contratoService;
 	
-	@GetMapping("/contratos")
+	@GetMapping("/")
 	public List<Contrato> getContratos(){
 		return contratoService.getContratos();
 	}

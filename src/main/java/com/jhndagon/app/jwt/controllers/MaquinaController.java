@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Max;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/maquinas")
 public class MaquinaController {
 
     @Autowired
     private IMaquinaService maquinaService;
 
-    @PostMapping("/maquina")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public Maquina crearMaquina(@RequestBody Maquina maquina) {
         return maquinaService.createMaquina(maquina);
     }
 
-    @GetMapping("/maquina/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Maquina maquina(@PathVariable Long id) {
         return maquinaService.findById(id);
     }
 
-    @GetMapping("/maquinas")
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public Page<Maquina> maquinas(
             @RequestParam(name="page" ,defaultValue = "0") int page,
@@ -37,13 +37,13 @@ public class MaquinaController {
         return maquinas;
     }
 
-    @PutMapping("/maquina/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Maquina updateMaquina(@RequestBody Maquina maquina,@PathVariable Long id){
         return maquinaService.updateMaquina(maquina,id);
     }
 
-    @DeleteMapping("/maquina/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarMaquina(@PathVariable Long id) {
         maquinaService.deleteMaquina(id);

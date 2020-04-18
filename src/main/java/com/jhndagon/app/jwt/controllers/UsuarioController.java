@@ -38,7 +38,7 @@ import com.jhndagon.app.jwt.services.IUsuarioService;
 
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/usuarios")
 public class UsuarioController {
 
 	@Autowired
@@ -48,7 +48,7 @@ public class UsuarioController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
-	@GetMapping("/usuarios")
+	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Usuario> usuarios(
 			@RequestParam(name="page" ,defaultValue = "0") int page, 
@@ -62,7 +62,7 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN"})
-	@GetMapping("/usuario/{id}")
+	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> usuario(@PathVariable Long id) {
 		
@@ -86,7 +86,7 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
-	@PostMapping("/usuario")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> crearUsuario(
 			@Valid @RequestBody Usuario usuario,
@@ -117,7 +117,7 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
-	@PutMapping("/usuario/{id}")
+	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuario, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
@@ -156,7 +156,7 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN"})
-	@DeleteMapping("/usuario/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> borrarUsuario(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		Usuario usuario = usuarioService.findById(id);

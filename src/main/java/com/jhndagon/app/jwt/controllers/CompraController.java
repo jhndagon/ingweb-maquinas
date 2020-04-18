@@ -11,14 +11,14 @@ import com.jhndagon.app.jwt.models.Compra;
 import com.jhndagon.app.jwt.services.ICompraService;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/compras")
 public class CompraController {
 
 
     @Autowired
     private ICompraService compraService;
     
-    @GetMapping("/compras")
+    @GetMapping("/")
 	public List<Compra> compras(){
 			
 		return compraService.findAllCompra();

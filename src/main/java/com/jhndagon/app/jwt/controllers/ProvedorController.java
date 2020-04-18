@@ -11,13 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/proveedores")
 public class ProvedorController {
 
     @Autowired
     private IProvedorService provedorService;
     
-	@GetMapping("/provedores")
+	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Provedor> provedores(
 			@RequestParam(name="page" ,defaultValue = "0") int page, 
@@ -26,25 +26,25 @@ public class ProvedorController {
 		return provedores;
 	}
 
-    @PostMapping("/provedor")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public Provedor crearProvedor(@RequestBody Provedor provedor) {
         return provedorService.createProvedor(provedor);
     }
 
-    @GetMapping("/provedor/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Provedor Provedor(@PathVariable Long id) {
         return provedorService.findProvedorById(id);
     }
 
-    @PutMapping("/provedor/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Provedor updateProvedor(@RequestBody Provedor provedor,@PathVariable Long id){
         return provedorService.updateProvedor(provedor,id);
     }
 
-    @DeleteMapping("/provedor/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarProvedor(@PathVariable Long id) {
         provedorService.deleteProvedor(id);
