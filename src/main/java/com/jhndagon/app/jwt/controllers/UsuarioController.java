@@ -27,13 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jhndagon.app.jwt.models.Contrato;
-import com.jhndagon.app.jwt.models.PuntoDeVenta;
-import com.jhndagon.app.jwt.models.Rol;
 import com.jhndagon.app.jwt.models.Usuario;
-import com.jhndagon.app.jwt.services.IContratoService;
-import com.jhndagon.app.jwt.services.IPuntoDeVentaService;
-import com.jhndagon.app.jwt.services.IRolService;
 import com.jhndagon.app.jwt.services.IUsuarioService;
 
 
@@ -82,7 +76,7 @@ public class UsuarioController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		usuario.setContrasenia("");
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	
 	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
@@ -165,7 +159,7 @@ public class UsuarioController {
 			usuarioService.deleteUsuario(id);			
 		}
 		catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar en la base de datos"); 
+			response.put("mensaje", "Error al eliminar en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
