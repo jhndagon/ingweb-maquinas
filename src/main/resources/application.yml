@@ -4,9 +4,9 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://remotemysql.com:3306/KXJnJWVLEL
-    username: KXJnJWVLEL 
-    password: xbOjszIbcC
+    url: jdbc:
+    username: 
+    password: 
    
  
 springdoc:
