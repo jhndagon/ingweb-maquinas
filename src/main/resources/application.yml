@@ -4,9 +4,15 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
+<<<<<<< HEAD
     url: jdbc:
     username: 
     password: 
+=======
+    url: jdbc:${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+>>>>>>> d24fccd910a05697a95be11bd1de305c3bf9f94f
    
  
 springdoc:

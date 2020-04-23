@@ -1,8 +1,6 @@
 package com.jhndagon.app.jwt.controllers;
 
 
-import javax.validation.constraints.Max;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,6 +26,7 @@ public class CompraController {
     @Autowired
     private ICompraService compraService;
     
+<<<<<<< HEAD
 
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
@@ -60,6 +59,12 @@ public class CompraController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarCompra(@PathVariable Long id) {
     	compraService.deleteCompra(id);
+=======
+    @GetMapping("/")
+	public List<Compra> compras(){
+			
+		return compraService.findAllCompra();
+>>>>>>> d24fccd910a05697a95be11bd1de305c3bf9f94f
     }
 	
 }
