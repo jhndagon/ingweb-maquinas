@@ -3,6 +3,9 @@ package com.jhndagon.app.jwt.services;
 import com.jhndagon.app.jwt.models.Maquina;
 import com.jhndagon.app.jwt.repositories.IMaquina;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +29,14 @@ public class MaquinaServiceImpl implements IMaquinaService {
     @Override
     @Transactional(readOnly = true)
     public Maquina findById(Long id) {
-       return maquinaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maquina no registrada"));
+       return maquinaRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Maquina> findAllMaquinas(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return maquinaRepository.findAll(pageable);
     }
 
     @Override

@@ -69,12 +69,6 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
 	public void deleteUsuario(Long id) {
 		usuarioRepository.deleteById(id);
 	}	
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<Rol> getRoles() {
-		return usuarioRepository.getRoles();
-	}
 	
 	
 	@Override

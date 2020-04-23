@@ -16,9 +16,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,26 +34,43 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 3240927467102198294L;
 	
+	@Hidden
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
 	private String nombre;
 	private String apellido;
-	@NotNull
+	@NotEmpty
 	@Column(unique = true, length = 20)
 	private String usuario;
-	@NotNull
+	@NotEmpty
 	@Column(length = 60)
 	private String contrasenia;
-	
+	@Hidden
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_rol")
 	private Rol rol;
+	@Hidden
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_contrato")
+	private Contrato contrato;
+	@Hidden
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_punto_venta")
+	private PuntoDeVenta puntoVenta;
 	@Email
 	private String correo;
+	@Temporal(TemporalType.TIME)
+	private Date fechaInicio;
+	@Temporal(TemporalType.TIME)
+	private Date fechaFin;
+	@Hidden
+	private String foto;
+	@Hidden
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaCreacion;
+	
 	
 	@PrePersist
 	public void prePersist() {
