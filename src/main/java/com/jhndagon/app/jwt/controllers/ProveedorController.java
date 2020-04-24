@@ -19,6 +19,12 @@ public class ProveedorController {
     @Autowired
     private IProveedorService proveedorService;
     
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Proveedor crearProveedor(@RequestBody Proveedor provedor) {
+        return proveedorService.createProveedor(provedor);
+    }
+    
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Proveedor> provedores(
@@ -27,12 +33,6 @@ public class ProveedorController {
 		Page<Proveedor> provedores = proveedorService.findAllProveedores(page, size);
 		return provedores;
 	}
-
-    @PostMapping("/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Proveedor crearProveedor(@RequestBody Proveedor provedor) {
-        return proveedorService.createProveedor(provedor);
-    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -22,7 +22,6 @@ import com.jhndagon.app.jwt.models.Compra;
 import com.jhndagon.app.jwt.services.ICompraService;
 
 @RestController
-@Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
 @RequestMapping(value = "/api/compras")
 public class CompraController {
 
@@ -30,7 +29,14 @@ public class CompraController {
     @Autowired
     private ICompraService compraService;
     
-
+    @Secured({"ROLE_ADMIN_PUNTO"})
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Compra crearProveedor(@RequestBody Compra compra) {
+        return compraService.createCompra(compra);
+    }
+    
+    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Compra> compras(
@@ -40,24 +46,22 @@ public class CompraController {
 		return compras;
 	}
 
-    @PostMapping("/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Compra crearProveedor(@RequestBody Compra compra) {
-        return compraService.createCompra(compra);
-    }
 
+    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Compra Compra(@PathVariable Long id) {
         return compraService.findCompraById(id);
     }
 
+    @Secured({"ROLE_ADMIN_PUNTO"})
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Compra updateCompra(@RequestBody Compra provedor,@PathVariable Long id){
         return compraService.updateCompra(provedor,id);
     }
 
+    @Secured({"ROLE_ADMIN_PUNTO"})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarCompra(@PathVariable Long id) {

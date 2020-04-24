@@ -11,24 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Max;
 
 @RestController
-@Secured({"ROLE_ADMIN"})
 @RequestMapping(value = "/api/puntos-de-ventas")
 public class PuntoDeVentaController {
     @Autowired
     private IPuntoDeVentaService puntoDeVentaService;
-
+    
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public PuntoDeVenta crearPuntoDeVenta(@RequestBody PuntoDeVenta puntoDeVenta ){
         return puntoDeVentaService.createPuntoDeVenta(puntoDeVenta);
 
     }
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public PuntoDeVenta puntoDeVenta(@PathVariable Long id){
-        return puntoDeVentaService.findById(id);
-    }
-
+  
+    @Secured({"ROLE_RECURSO_HUMANO", "ROLE_ADMIN"})
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public Page<PuntoDeVenta> puntosDeVenta(@RequestParam(name="page" ,defaultValue = "0") int page,
@@ -37,13 +33,22 @@ public class PuntoDeVentaController {
         return puntosDeVenta;
 
     }
-
+    
+    @Secured({"ROLE_RECURSO_HUMANO", "ROLE_ADMIN"})
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PuntoDeVenta puntoDeVenta(@PathVariable Long id){
+        return puntoDeVentaService.findById(id);
+    }
+    
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public PuntoDeVenta updatePuntoDeVenta(@RequestBody PuntoDeVenta puntoDeVenta,@PathVariable Long id){
         return puntoDeVentaService.updatePuntoDeVenta(puntoDeVenta,id);
     }
-
+    
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarPuntoDeVenta(@PathVariable Long id){

@@ -43,7 +43,6 @@ public class UsuarioController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Usuario> usuarios(
@@ -57,7 +56,6 @@ public class UsuarioController {
 		return usuarios;
 	}
 	
-	//@Secured({"ROLE_ADMIN"})
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> usuario(@PathVariable Long id) {
@@ -81,7 +79,6 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	
-	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> crearUsuario(
@@ -112,7 +109,6 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
 	}
 	
-	//@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuario, BindingResult result) {
@@ -151,7 +147,6 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(usuario_, HttpStatus.CREATED);
 	}
 	
-	//@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> borrarUsuario(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();

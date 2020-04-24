@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import com.jhndagon.app.jwt.services.IRolService;
 
 @RestController
 @RequestMapping("/api/roles")
+@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
 public class RolController {
 	
 
