@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ import com.jhndagon.app.jwt.services.IUsuarioService;
 
 
 @RestController
+@Secured({"ROLE_ADMIN", "ROLE_RECURSO_HUMANO"})
 @RequestMapping(value = "/api/usuarios")
 public class UsuarioController {
 

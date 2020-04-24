@@ -36,17 +36,17 @@ public class CompraServiceImp implements ICompraService{
 	       return compraRepository.findById(id).orElse(null);
 	}
 
-//	@Override
-//    @Transactional(readOnly = false)
-//	public Compra updateCompra(Compra compra, Long id) {
-//        Compra compraActual= findCompraById(id);
-//        compraActual.setPrecio(compra.getPrecio());
-//        compraActual.setCantidad(compra.getCantidad());
-//        compraActual.setReciboCompra(compra.getReciboCompra());
-//        compraActual.setFechaCompra(compra.getFechaCompra());
-//        
-//        return compraRepository.save(compraActual);
-//	}
+	@Override
+    @Transactional(readOnly = false)
+	public Compra updateCompra(Compra compra, Long id) {
+        Compra compraActual= findCompraById(id);
+        compraActual.setPrecio(compra.getPrecio());
+        compraActual.setCantidad(compra.getCantidad());
+        compraActual.setReciboCompra(compra.getReciboCompra());
+        compraActual.setFechaCompra(compra.getFechaCompra());
+        
+        return compraRepository.save(compraActual);
+	}
 
 	@Override
     @Transactional(readOnly = false)

@@ -8,9 +8,11 @@ import javax.validation.constraints.Max;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
 @RequestMapping(value = "/api/proveedores")
 public class ProveedorController {
 

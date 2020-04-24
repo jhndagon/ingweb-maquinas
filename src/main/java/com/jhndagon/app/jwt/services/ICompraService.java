@@ -13,7 +13,7 @@ public interface ICompraService {
 
     Compra findCompraById(Long id);
 
-    //Compra updateCompra(Compra compra, Long id);
+    Compra updateCompra(Compra compra, Long id);
 
     void deleteCompra(Long id);
 }
