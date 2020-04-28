@@ -130,7 +130,7 @@ public class UsuarioController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		
-		usuario_.setContrasenia(usuario.getContrasenia());			
+		usuario_.setContrasenia(usuario_.getContrasenia());			
 		usuario_.setApellido(usuario.getApellido());
 		usuario_.setCorreo(usuario.getCorreo());
 		usuario_.setNombre(usuario.getNombre());
