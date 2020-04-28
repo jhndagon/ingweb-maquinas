@@ -129,8 +129,8 @@ public class UsuarioController {
 			response.put("mensaje", "El cliente con id: ".concat(id.toString().concat(", no existe en la base de datos.")));	
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		String contrasenia = passwordEncoder.encode(usuario.getContrasenia());
-		usuario_.setContrasenia(contrasenia);			
+		
+		usuario_.setContrasenia(usuario.getContrasenia());			
 		usuario_.setApellido(usuario.getApellido());
 		usuario_.setCorreo(usuario.getCorreo());
 		usuario_.setNombre(usuario.getNombre());
