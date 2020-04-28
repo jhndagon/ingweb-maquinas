@@ -16,8 +16,8 @@ insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato, id_punto
 insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato, id_punto_venta) values("David","david", "$2a$10$7e6XaWDzJQEuJB93yv/QlOoKI6lCA04SkgMQhHAWt1ih7cT03.Plu", 2,2,1);
 insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato, id_punto_venta) values("Mateo","mateo", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1,2,2);
 insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato, id_punto_venta) values("Mateo","mateo123", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1,1,2);
-insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato) values("Paula","paula", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1,2,2);
-insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato) values("Usuario","user", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1,1,1);
+insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato, id_punto_venta) values("Paula","paula", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1,2,2);
+insert into usuarios(nombre, usuario, contrasenia, id_rol, id_contrato, id_punto_venta) values("Usuario","user", "$2a$10$hZDgewXA2XS4IXsM8cfep.RymaBXzGipYncB4NBCC853YONAjYCMy", 1,1,1);
 
 
 

@@ -44,7 +44,6 @@ public class Usuario implements Serializable {
 	@NotEmpty
 	@Column(unique = true, length = 20)
 	private String usuario;
-	@NotEmpty
 	@Column(length = 60)
 	private String contrasenia;
 	@Hidden
