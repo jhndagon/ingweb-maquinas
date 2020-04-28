@@ -92,6 +92,7 @@ public class MaquinaController {
         }
 
         try {
+        	maquina.setFechaCreacion(maquinaActual.getFechaCreacion());
             maquinaUp=maquinaService.updateMaquina(maquina,id);
         }
         catch (DataAccessException e) {
