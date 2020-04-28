@@ -46,7 +46,7 @@ public class ProveedorController {
 		Proveedor proveedor = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			proveedorService.findProveedorById(id);
+			proveedor = proveedorService.findProveedorById(id);
 		}
 		catch (DataAccessException e){
 			response.put("mensaje", "Error al acceder a la base de datos"); 
