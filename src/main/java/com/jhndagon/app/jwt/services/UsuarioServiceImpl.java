@@ -82,7 +82,7 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService {
 		}
 		
 		
-		List<Rol> roles = new ArrayList();
+		List<Rol> roles = new ArrayList<Rol>();
 		roles.add(usuario1.getRol());
 		List<GrantedAuthority> authorities = roles
 				.stream()

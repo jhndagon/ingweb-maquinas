@@ -1,7 +1,6 @@
 package com.jhndagon.app.jwt.controllers;
 
 import com.jhndagon.app.jwt.models.PuntoDeVenta;
-import com.jhndagon.app.jwt.models.Usuario;
 import com.jhndagon.app.jwt.services.IPuntoDeVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
