@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,6 +27,8 @@ public class Maquina implements Serializable {
     private Date fechaCreacion;
     @NotNull
     private String tipo;
+    @Column(updatable = false, insertable = false)
+    private int cantidad;
     
     @PrePersist
     public void prePersist() {

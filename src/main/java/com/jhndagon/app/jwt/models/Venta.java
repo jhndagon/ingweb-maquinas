@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,19 +15,40 @@ import java.util.Date;
 @Setter
 
 public class Venta implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -5357137932113350964L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_empleado")
+	private Usuario empleado;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_maquina")
+	private Maquina maquina;
+	
+    @NotEmpty
     private double precio;
-    @NotNull
+    @NotEmpty
     private int cantidad;
     
     @Temporal(TemporalType.DATE)
     private Date fechaVenta;
+    
+	@PrePersist
+	public void prePersist() {
+		fechaVenta = new Date();		
+	}
+    
+    
+    public double getTotal() {
+    	return cantidad * precio;
+    }
 	
+    
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5357137932113350964L;
 }

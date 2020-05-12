@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -24,17 +29,36 @@ public class Compra implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_empleado")
+	private Usuario empleado;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_maquina")
+	private Maquina maquina;
+    @NotEmpty
     private double precio;
-    @NotNull
+    @NotEmpty
     private int cantidad;
     @NotNull
     private String reciboCompra;
 
     @Temporal(TemporalType.DATE)
     private Date fechaCompra;
-    @NotNull
-    private long idProvedor;
+    
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_proveedor")
+    private Proveedor idProvedor;
+	
+	@PrePersist
+	public void prePersist() {
+		fechaCompra = new Date();		
+	}
+    
+    public double getTotal() {
+    	return cantidad * precio;
+    }
 
 	/**
 	 * 
