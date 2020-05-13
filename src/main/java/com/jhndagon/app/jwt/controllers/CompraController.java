@@ -31,8 +31,8 @@ public class CompraController {
 
     @Autowired
     private ICompraService compraService;
-    
-    @Secured({"ROLE_ADMIN_PUNTO"})
+//    
+//    @Secured({"ROLE_ADMIN_PUNTO"})
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> crearcompra(@RequestBody Compra compra) {
@@ -54,7 +54,7 @@ public class CompraController {
 
     }
     
-    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Compra> compras(
@@ -64,7 +64,7 @@ public class CompraController {
 		return compras;
 	}
 
-    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> compra(@PathVariable Long id) {
@@ -87,7 +87,7 @@ public class CompraController {
         return new ResponseEntity<Compra>(compra, HttpStatus.OK);
     }
 
-    @Secured({"ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN_PUNTO"})
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> updateCompra(@RequestBody Compra compra,@PathVariable Long id){
@@ -115,7 +115,7 @@ public class CompraController {
 
 }
 
-    @Secured({"ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN_PUNTO"})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> eliminarCompra(@PathVariable Long id) {

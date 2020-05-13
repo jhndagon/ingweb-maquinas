@@ -4,7 +4,7 @@ services:
     image: mysql:5.7
     restart: always
     volumes:
-      - ./data:/var/lib/mysql
+      - /tmp/mysql/data:/var/lib/mysql
     environment: 
       - MYSQL_ROOT_PASSWORD=ingweb
       - MYSQL_DATABASE=maquinas

@@ -32,7 +32,7 @@ public class VentaController {
     @Autowired
     private IVentaService ventaService;
     
-    @Secured({"ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN_PUNTO"})
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> crearventa(@RequestBody Venta venta) {
@@ -54,7 +54,7 @@ public class VentaController {
 
     }
     
-    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Venta> ventas(
@@ -64,7 +64,7 @@ public class VentaController {
 		return ventas;
 	}
 
-    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> venta(@PathVariable Long id) {
@@ -87,7 +87,7 @@ public class VentaController {
         return new ResponseEntity<Venta>(venta, HttpStatus.OK);
     }
 
-    @Secured({"ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN_PUNTO"})
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> updateVenta(@RequestBody Venta venta,@PathVariable Long id){
@@ -115,7 +115,7 @@ public class VentaController {
 
 }
 
-    @Secured({"ROLE_ADMIN_PUNTO"})
+//    @Secured({"ROLE_ADMIN_PUNTO"})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> eliminarVenta(@PathVariable Long id) {

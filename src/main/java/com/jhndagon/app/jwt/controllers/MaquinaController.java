@@ -66,7 +66,7 @@ public class MaquinaController {
 
     }
 
-    @Secured({"ROLE_ADMIN_PUNTO", "ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN_PUNTO", "ROLE_ADMIN"})
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public Page<Maquina> maquinas(

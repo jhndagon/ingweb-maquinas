@@ -1,5 +1,7 @@
 package com.jhndagon.app.jwt.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,6 +55,11 @@ public class CompraServiceImp implements ICompraService{
 	public void deleteCompra(Long id) {
         compraRepository.deleteById(id);
 		
+	}
+
+	@Override
+	public List<Compra> findByPuntoVenta(Long idPuntoVenta) {
+		return compraRepository.findByPuntoVenta(idPuntoVenta);
 	}
 
 }
