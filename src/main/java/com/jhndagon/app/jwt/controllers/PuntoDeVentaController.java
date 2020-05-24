@@ -1,9 +1,14 @@
 package com.jhndagon.app.jwt.controllers;
 
 import com.jhndagon.app.jwt.models.Compra;
+import com.jhndagon.app.jwt.models.Maquina;
 import com.jhndagon.app.jwt.models.PuntoDeVenta;
+import com.jhndagon.app.jwt.models.Venta;
 import com.jhndagon.app.jwt.services.ICompraService;
 import com.jhndagon.app.jwt.services.IPuntoDeVentaService;
+import com.jhndagon.app.jwt.services.IVentaService;
+import com.jhndagon.app.jwt.utils.Calculos;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -16,6 +21,7 @@ import javax.validation.constraints.Max;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/puntos-de-ventas")
@@ -25,6 +31,9 @@ public class PuntoDeVentaController {
     
     @Autowired
     private ICompraService compraService;
+    
+    @Autowired
+    private IVentaService ventaService;
 
     @Secured({"ROLE_ADMIN"})
     @PostMapping("/")
@@ -81,15 +90,15 @@ public class PuntoDeVentaController {
         return new ResponseEntity<PuntoDeVenta>(puntoDeVenta, HttpStatus.OK);
     }
     
-//    @Secured({"ROLE_RECURSO_HUMANO", "ROLE_ADMIN"})
+    @Secured({"ROLE_RECURSO_HUMANO", "ROLE_ADMIN"})
     @GetMapping("/{id}/inventario")
     @ResponseStatus(HttpStatus.OK)
-    public String puntoDeVentaInventario(@PathVariable Long id){
+    public List<Maquina> puntoDeVentaInventario(@PathVariable Long id){
     	List<Compra> compras = compraService.findByPuntoVenta(id);
-    	// capturar ventas
-    	// hacer match de maquinas para conocer la cantidad
-    	// retornar una lista de productos (¿paginados?)
-    	return "hola";
+    	List<Venta> ventas = ventaService.findByPuntoVenta(id);
+    	
+    	List<Maquina> maquinas = Calculos.getMaquinaCantidad(compras, ventas);
+    	return maquinas;
     }
     
     @Secured({"ROLE_ADMIN"})

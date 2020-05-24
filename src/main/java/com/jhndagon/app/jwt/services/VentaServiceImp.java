@@ -1,5 +1,7 @@
 package com.jhndagon.app.jwt.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +54,11 @@ public class VentaServiceImp implements IVentaService{
 	public void deleteVenta(Long id) {
         ventaRepository.deleteById(id);
 		
+	}
+
+	@Override
+	public List<Venta> findByPuntoVenta(Long idPuntoVenta) {
+		return ventaRepository.findByPuntoVenta(idPuntoVenta);
 	}
 
 }
