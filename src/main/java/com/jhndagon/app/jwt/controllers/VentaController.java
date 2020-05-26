@@ -1,10 +1,15 @@
 package com.jhndagon.app.jwt.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.Max;
 
+import com.jhndagon.app.jwt.models.Compra;
+import com.jhndagon.app.jwt.models.Maquina;
+import com.jhndagon.app.jwt.services.ICompraService;
+import com.jhndagon.app.jwt.utils.Calculos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -31,6 +36,9 @@ public class VentaController {
 
     @Autowired
     private IVentaService ventaService;
+
+    @Autowired
+    private ICompraService compraService;
     
 //    @Secured({"ROLE_ADMIN_PUNTO"})
     @PostMapping("/")
@@ -40,11 +48,30 @@ public class VentaController {
         Map<String, Object> response = new HashMap<>();
 
         try{
-            ventaNew= ventaService.createVenta(venta);
+            boolean flag = false;
+            Long puntoVentaId = venta.getEmpleado().getPuntoVenta().getId();
+            List<Compra> compras = compraService.findByPuntoVenta(puntoVentaId);
+            List<Venta> ventas = ventaService.findByPuntoVenta(puntoVentaId);
+            List<Maquina> maquinas = Calculos.getMaquinaCantidad(compras, ventas);
+
+            for(int i=0;i<maquinas.size();i++){
+                if(maquinas.get(i).getMarca().contains(venta.getMaquina().getMarca())){
+                    if(maquinas.get(i).getCantidad()>=venta.getCantidad()){
+                       flag=true;
+                       ventaNew= ventaService.createVenta(venta);
+                    }
+                }
+            }
+            
+            if(flag==false){
+                response.put("mensaje", "La cantidad de maquinas con esas caracteristicas no se encuentra disponible");
+                return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+            }
+
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al acceder a la base de datos");
             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
 
         response.put("mensaje","La venta ha sido creada");
