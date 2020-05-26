@@ -14,7 +14,7 @@ public interface ICompra extends PagingAndSortingRepository<Compra, Long>{
 	@Query("SELECT c FROM Compra c JOIN c.empleado e Join e.puntoVenta pv where pv.id = ?1")
 	List<Compra> findByPuntoVenta(Long idPuntoVenta);
 
-	@Query("SELECT c FROM Compra c JOIN c.empleado e Join e.puntoVenta pv JOIN c.maquina m where pv.id = ?1 and  m.id=?1 ")
+	@Query("SELECT c FROM Compra c JOIN c.empleado e Join e.puntoVenta pv JOIN c.maquina m where pv.id = ?1 and  m.id=?2 ")
 	List<Compra> findByPuntoVentaMaquina(Long idPuntoVenta, Long marca);
 
 
