@@ -62,4 +62,10 @@ public class CompraServiceImp implements ICompraService{
 		return compraRepository.findByPuntoVenta(idPuntoVenta);
 	}
 
+	@Override
+	public List<Compra> findByPuntoVentaMaquina(Long idPuntoVenta, Long marca) {
+		return compraRepository.findByPuntoVentaMaquina(idPuntoVenta,marca);
+	}
+
+
 }

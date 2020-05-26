@@ -61,4 +61,9 @@ public class VentaServiceImp implements IVentaService{
 		return ventaRepository.findByPuntoVenta(idPuntoVenta);
 	}
 
+	@Override
+	public List<Venta> findByPuntoVentaMaquina(Long idPuntoVenta, Long marca) {
+		return ventaRepository.findByPuntoVentaMaquina(idPuntoVenta,marca);
+	}
+
 }

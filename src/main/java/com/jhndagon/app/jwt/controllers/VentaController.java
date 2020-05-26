@@ -48,22 +48,21 @@ public class VentaController {
         Map<String, Object> response = new HashMap<>();
 
         try{
-            boolean flag = false;
             Long puntoVentaId = venta.getEmpleado().getPuntoVenta().getId();
-            List<Compra> compras = compraService.findByPuntoVenta(puntoVentaId);
-            List<Venta> ventas = ventaService.findByPuntoVenta(puntoVentaId);
+            Long maquinaId = venta.getMaquina().getId();
+            List<Compra> compras = compraService.findByPuntoVentaMaquina(puntoVentaId,maquinaId);
+            List<Venta> ventas = ventaService.findByPuntoVentaMaquina(puntoVentaId,maquinaId);
             List<Maquina> maquinas = Calculos.getMaquinaCantidad(compras, ventas);
 
-            for(int i=0;i<maquinas.size();i++){
-                if(maquinas.get(i).getMarca().contains(venta.getMaquina().getMarca())){
-                    if(maquinas.get(i).getCantidad()>=venta.getCantidad()){
-                       flag=true;
-                       ventaNew= ventaService.createVenta(venta);
-                    }
+            if(!maquinas.isEmpty()){
+                if(maquinas.get(0).getCantidad()>=venta.getCantidad()){
+                    ventaNew= ventaService.createVenta(venta);
+                }else{
+                    response.put("mensaje", "La cantidad de maquinas con esas caracteristicas no se encuentra disponible");
+                    return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
                 }
-            }
-            
-            if(flag==false){
+
+            }else{
                 response.put("mensaje", "La cantidad de maquinas con esas caracteristicas no se encuentra disponible");
                 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
             }

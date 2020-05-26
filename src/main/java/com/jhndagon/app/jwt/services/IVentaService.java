@@ -20,4 +20,6 @@ public interface IVentaService {
     void deleteVenta(Long id);
     
     List<Venta> findByPuntoVenta(Long idPuntoVenta);
+
+    List<Venta> findByPuntoVentaMaquina(Long idPuntoVenta, Long marca);
 }
