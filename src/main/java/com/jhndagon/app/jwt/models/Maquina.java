@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -19,15 +20,15 @@ public class Maquina implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @NotEmpty
     private String marca;
-    @NotNull
+    @NotEmpty
     private String modelo;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    @NotNull
+    @NotEmpty
     private String tipo;
-    @Column(updatable = false, insertable = false)
+    @Transient
     private int cantidad;
     
     @PrePersist
