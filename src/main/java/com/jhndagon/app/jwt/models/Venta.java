@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="ventas")
@@ -32,6 +33,11 @@ public class Venta implements Serializable {
     private double precio;
     @NotEmpty
     private int cantidad;
+    
+    private String nombre;
+    private String apellido;
+    private String cedula;
+    private String celular;
     
     @Temporal(TemporalType.DATE)
     private Date fechaVenta;

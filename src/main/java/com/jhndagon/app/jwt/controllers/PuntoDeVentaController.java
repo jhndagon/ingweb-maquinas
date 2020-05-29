@@ -101,6 +101,22 @@ public class PuntoDeVentaController {
     	return maquinas;
     }
     
+    @GetMapping("/{id}/compras")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Compra> puntoDeVentaCompas(@PathVariable Long id){
+    	List<Compra> compras = compraService.findByPuntoVenta(id);
+    	return compras;
+    }
+    
+    
+    @GetMapping("/{id}/ventas")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Venta> puntoDeVentaVentas(@PathVariable Long id){
+    	List<Venta> ventas = ventaService.findByPuntoVenta(id);
+    	return ventas;
+    }
+    
+    
     @Secured({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePuntoDeVenta(@RequestBody PuntoDeVenta puntoDeVenta,@PathVariable Long id){

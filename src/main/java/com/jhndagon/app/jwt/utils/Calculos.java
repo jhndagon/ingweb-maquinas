@@ -35,7 +35,7 @@ public class Calculos {
 			}			
 			else {
 				Maquina maquina = venta.getMaquina();
-				maquina.setCantidad(venta.getCantidad());
+				maquina.setCantidad(-venta.getCantidad());
 				maquinas.add(venta.getMaquina());
 			}
 		}		
