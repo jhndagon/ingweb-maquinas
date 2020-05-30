@@ -29,10 +29,8 @@ public class Venta implements Serializable {
 	@JoinColumn(name = "id_maquina")
 	private Maquina maquina;
 	
-    @NotEmpty
-    private double precio;
-    @NotEmpty
-    private int cantidad;
+    private Double precio;
+    private Integer cantidad;
     
     private String nombre;
     private String apellido;

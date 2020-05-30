@@ -37,11 +37,8 @@ public class Compra implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_maquina")
 	private Maquina maquina;
-    @NotEmpty
     private double precio;
-    @NotEmpty
-    private int cantidad;
-    @NotNull
+    private Integer cantidad;
     private String reciboCompra;
 
     @Temporal(TemporalType.DATE)

@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 3240927467102198294L;
 	
-	@Hidden
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -49,15 +49,15 @@ public class Usuario implements Serializable {
 	private String usuario;
 	@Column(length = 60)
 	private String contrasenia;
-	@Hidden
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_rol")
 	private Rol rol;
-	@Hidden
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_contrato")
 	private Contrato contrato;
-	@Hidden
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_punto_venta")
 	private PuntoDeVenta puntoVenta;

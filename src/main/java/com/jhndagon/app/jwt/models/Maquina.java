@@ -29,7 +29,7 @@ public class Maquina implements Serializable {
     @NotEmpty
     private String tipo;
     @Transient
-    private int cantidad;
+    private Integer cantidad;
     
     @PrePersist
     public void prePersist() {
