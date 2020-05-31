@@ -56,6 +56,7 @@ public class UsuarioController {
 		return usuarios;
 	}
 	
+	@Secured({"ROLE_EMPLEADO"})
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> usuario(@PathVariable Long id) {
