@@ -40,7 +40,7 @@ public class VentaController {
     @Autowired
     private ICompraService compraService;
     
-    @Secured({"ROLE_ADMIN_PUNTO", "ROLE_EMPLEADO"})
+    @Secured({"ROLE_ADMIN_PUNTO", "ROLE_EMPLEADO", "ROLE_ADMIN"})
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> crearventa(@RequestBody Venta venta) {
