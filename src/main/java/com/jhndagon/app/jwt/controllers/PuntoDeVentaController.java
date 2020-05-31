@@ -90,7 +90,7 @@ public class PuntoDeVentaController {
         return new ResponseEntity<PuntoDeVenta>(puntoDeVenta, HttpStatus.OK);
     }
     
-    @Secured({"ROLE_RECURSO_HUMANO", "ROLE_ADMIN"})
+    @Secured({"ROLE_EMPLEADO", "ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
     @GetMapping("/{id}/inventario")
     @ResponseStatus(HttpStatus.OK)
     public List<Maquina> puntoDeVentaInventario(@PathVariable Long id){
@@ -101,6 +101,7 @@ public class PuntoDeVentaController {
     	return maquinas;
     }
     
+    @Secured({"ROLE_EMPLEADO", "ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
     @GetMapping("/{id}/compras")
     @ResponseStatus(HttpStatus.OK)
     public List<Compra> puntoDeVentaCompas(@PathVariable Long id){
@@ -108,7 +109,7 @@ public class PuntoDeVentaController {
     	return compras;
     }
     
-    
+    @Secured({"ROLE_EMPLEADO", "ROLE_ADMIN", "ROLE_ADMIN_PUNTO"})
     @GetMapping("/{id}/ventas")
     @ResponseStatus(HttpStatus.OK)
     public List<Venta> puntoDeVentaVentas(@PathVariable Long id){
