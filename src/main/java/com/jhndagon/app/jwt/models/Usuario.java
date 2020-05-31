@@ -29,7 +29,6 @@ import lombok.Setter;
 @Table(name="usuarios")
 @Getter
 @Setter
-@JsonIgnoreProperties("contrasenia")
 public class Usuario implements Serializable {
 
 	/**
@@ -47,7 +46,7 @@ public class Usuario implements Serializable {
 	@NotEmpty
 	@Column(unique = true, length = 20)
 	private String usuario;
-	@Column(length = 60)
+	@Column(length = 100)
 	private String contrasenia;
 
 	@ManyToOne(fetch = FetchType.EAGER)
