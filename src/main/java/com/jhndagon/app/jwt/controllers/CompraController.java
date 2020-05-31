@@ -32,7 +32,7 @@ public class CompraController {
     @Autowired
     private ICompraService compraService;
     
-    @Secured({"ROLE_ADMIN_PUNTO"})
+    @Secured({"ROLE_ADMIN_PUNTO", "ROLE_ADMIN"})
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> crearcompra(@RequestBody Compra compra) {

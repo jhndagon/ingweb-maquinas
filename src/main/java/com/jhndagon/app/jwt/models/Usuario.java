@@ -62,9 +62,9 @@ public class Usuario implements Serializable {
 	private PuntoDeVenta puntoVenta;
 	@Email
 	private String correo;
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date fechaInicio;
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date fechaFin;
 	@Hidden
 	private String foto;
